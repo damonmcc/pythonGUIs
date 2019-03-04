@@ -10,7 +10,6 @@ import matplotlib.backends.tkagg as tkagg
 import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.use('TkAgg')
-import cv2
 from PIL import Image
 from PIL.TiffTags import TAGS
 

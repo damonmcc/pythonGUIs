@@ -1,5 +1,5 @@
 # pythonGUIs
-Collection of python GUI examples and tutorials
+Collection of python GUIs from examples, tutorials, and custom-built
 
 ## Structure:
 * Learnpub: examples from [Create Simple GUI Applications (leanpub.com)](https://leanpub.com/create-simple-gui-applications/read#leanpub-auto-introduction)
@@ -9,7 +9,7 @@ Collection of python GUI examples and tutorials
     * GitHub: examples based on the readme content on [github](https://github.com/PySimpleGUI/PySimpleGUI)
     * Tutorial: examples from the [docs tutorial](https://pysimplegui.readthedocs.io/tutorial/) section
 * Pythonspot: examples from [PyQT5 Python Tutorials (pythonspot.com)](https://pythonspot.com/pyqt5/)
-* QtDesigner: GUIs built and exported by QtDesigner
+* QtDesigner: GUIs built and exported with QtDesigner for pyQt5 use
     * Custom
     * Matplotlib
     * Simple

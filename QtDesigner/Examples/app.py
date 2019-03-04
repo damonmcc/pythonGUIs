@@ -4,7 +4,6 @@
 import sys
 from PyQt5.QtWidgets import QDialog, QApplication
 from CustomButtonBox import Ui_Dialog
-# TODO: 'ModuleNotFoundError: No module named 'PyQt5.sip''
 
 
 class AppWindow(QDialog):

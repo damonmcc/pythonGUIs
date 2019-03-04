@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'CustomButtonBox.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
-#
+# Converted with: pyuic5 dialog.ui > dialog.py
 # WARNING! All changes made in this file will be lost!
 # https://www.codementor.io/deepaksingh04/design-simple-dialog-using-pyqt5-designer-tool-ajskrd09n
 from PyQt5 import QtCore, QtGui, QtWidgets

@@ -16,7 +16,7 @@ class VideoWidget(QWidget):
         self.rawImg = RawImageWidget(QWidget())
         # create a vertical box layout
         self.vbl = QVBoxLayout()
-        # add mpl widget to vertical box
+        # add widget to vertical box
         self.vbl.addWidget(self.rawImg)
-        # set the layout to th vertical box
+        # set the layout to the vertical box
         self.setLayout(self.vbl)

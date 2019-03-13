@@ -12,7 +12,7 @@ import numpy as np
 import pyqtgraph as pg
 import pyqtgraph.ptime as ptime
 
-from QtDesigner.Custom.pyqtgraphVideo.MainWindow import Ui_MainWindow
+from QtDesigner.Custom.pyqtgraphVideo.MainWindowComplex import Ui_MainWindow
 
 
 class VideoMainWindow(QMainWindow, Ui_MainWindow):
@@ -26,17 +26,9 @@ class VideoMainWindow(QMainWindow, Ui_MainWindow):
         pg.setConfigOptions(background=pg.mkColor(0.5))
         pg.setConfigOptions(foreground=pg.mkColor(0.3))
         self.setWindowTitle('pyqtgraph example: Image Analysis')
-        # Create a central Graphics Layout Widget
-        self.win = pg.GraphicsLayoutWidget()
-        self.setCentralWidget(self.win)
 
-        # A plot area (ViewBox + axes) for displaying the image
-        self.p1 = self.win.addPlot()
-        # Item for displaying image data
-        self.img = pg.ImageItem()
-        self.p1.addItem(self.img)
         # Preserve plot area's aspect ration so image always scales correctly
-        self.p1.setAspectLocked(True)
+        self.graphicsView.p1.setAspectLocked(True)
 
         # Use a file dialog to choose tiff stack
         file, mask = QFileDialog.getOpenFileName(self, 'Open a .tif/.tiff stack')
@@ -57,14 +49,15 @@ class VideoMainWindow(QMainWindow, Ui_MainWindow):
         self.timer.timeout.connect(self.update)
         self.timer.start(50)    # 50 ms =~ 20 fps
 
-        # Contrast/color control
+        # Levels/color control with a histogram
+        # TODO try with a HistogramLUTWidget
         self.hist = pg.HistogramLUTItem()
-        self.hist.setImageItem(self.img)
-        self.win.addItem(self.hist)
+        self.hist.setImageItem(self.graphicsView.img)
+        self.graphicsView.widget.addItem(self.hist)
 
         # Isocurve drawing
         self.iso = pg.IsocurveItem(level=0.8, pen='g')
-        self.iso.setParentItem(self.img)
+        self.iso.setParentItem(self.graphicsView.img)
         self.iso.setZValue(5)
 
         # Draggable line for setting isocurve level
@@ -76,8 +69,8 @@ class VideoMainWindow(QMainWindow, Ui_MainWindow):
         self.isoLine.sigDragged.connect(self.updateIsocurve)
 
         # Generate image data
-        self.img.setImage(self.img_data[0])
-        # self.img.scale(self.img_data.shape[1], self.img_data.shape[2])
+        self.graphicsView.img.setImage(self.img_data[0])
+        # self.graphicsView.img.scale(self.img_data.shape[1], self.img_data.shape[2])
         self.hist.setLevels(self.img_data.min(), self.img_data.max())
 
         # build isocurves from smoothed data
@@ -86,7 +79,7 @@ class VideoMainWindow(QMainWindow, Ui_MainWindow):
 
         # zoom to fit image
         # self.p1.autoRange()
-        # self.win.setAspectLocked(True)
+        # self.graphicsView.widget.setAspectLocked(True)
 
     def updateIsocurve(self):
         self.iso.setLevel(self.isoLine.value())
@@ -98,7 +91,7 @@ class VideoMainWindow(QMainWindow, Ui_MainWindow):
     #
     def update(self):
         # Update ImageItem with next frame in stack
-        self.img.setImage(self.img_data[self.ptr % self.img_data.shape[0]])
+        self.graphicsView.img.setImage(self.img_data[self.ptr % self.img_data.shape[0]])
         # Notify histogram item of image change
         self.hist.regionChanged()
 
